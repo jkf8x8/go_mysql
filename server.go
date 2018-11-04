@@ -43,15 +43,40 @@ import (
 
 //~~~~~~~~~~~使用多个处理器
 
-type HomeHandle struct{}
-type PageHandle struct{}
+// type HomeHandle struct{}
+// type PageHandle struct{}
 
-func (cus *HomeHandle) ServeHTTP(w http.ResponseWriter , r *http.Request){
-	fmt.Fprint(w , "home handle")
+// func (cus *HomeHandle) ServeHTTP(w http.ResponseWriter , r *http.Request){
+// 	fmt.Fprint(w , "home handle")
+// }
+
+// func (cus *PageHandle) ServeHTTP(w http.ResponseWriter , r *http.Request){
+// 	fmt.Fprint(w , "page handle")
+// }
+
+// func main(){
+
+// 	server := http.Server{
+// 		Addr:":8080",
+// 	}
+
+// 	Home := HomeHandle{}
+// 	Page := PageHandle{}
+
+// 	http.Handle("/",&Home)
+// 	http.Handle("/page",&Page)
+
+// 	server.ListenAndServe()
+// }
+
+//~~~~~~~~~~~处理函数
+
+func Home(w http.ResponseWriter , r *http.Request){
+	fmt.Fprint(w , "home func")
 }
 
-func (cus *PageHandle) ServeHTTP(w http.ResponseWriter , r *http.Request){
-	fmt.Fprint(w , "page handle")
+func Page(w http.ResponseWriter , r *http.Request){
+	fmt.Fprint(w , "page func")
 }
 
 func main(){
@@ -60,12 +85,8 @@ func main(){
 		Addr:":8080",
 	}
 
-	Home := HomeHandle{}
-	Page := PageHandle{}
-
-	http.Handle("/",&Home)
-	http.Handle("/page",&Page)
-
+	http.HandleFunc("/",Home)
+	http.HandleFunc("/page",Page)
+	
 	server.ListenAndServe()
 }
-
