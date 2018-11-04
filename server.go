@@ -24,19 +24,48 @@ import (
 // }
 
 
-//~~~~~~~~~~~自定义处理器
-type CustomHandler struct{}
+//~~~~~~~~~~~自定义处理器 实现ServeHTTP接口
+// type CustomHandler struct{}
 
-func (cus *CustomHandler) ServeHTTP(w http.ResponseWriter , r *http.Request){
-	fmt.Fprintf(w, "custome handle")
+// func (cus *CustomHandler) ServeHTTP(w http.ResponseWriter , r *http.Request){
+// 	fmt.Fprintf(w, "custome handle")
+// }
+
+// func main(){
+// 	Custom := CustomHandler{}
+// 	server := http.Server{
+// 		Addr:":8080",
+// 		Handler: &Custom,
+// 	}
+
+// 	server.ListenAndServe()
+// }
+
+//~~~~~~~~~~~使用多个处理器
+
+type HomeHandle struct{}
+type PageHandle struct{}
+
+func (cus *HomeHandle) ServeHTTP(w http.ResponseWriter , r *http.Request){
+	fmt.Fprint(w , "home handle")
+}
+
+func (cus *PageHandle) ServeHTTP(w http.ResponseWriter , r *http.Request){
+	fmt.Fprint(w , "page handle")
 }
 
 func main(){
-	Custom := CustomHandler{}
+
 	server := http.Server{
 		Addr:":8080",
-		Handler: &Custom,
 	}
+
+	Home := HomeHandle{}
+	Page := PageHandle{}
+
+	http.Handle("/",&Home)
+	http.Handle("/page",&Page)
 
 	server.ListenAndServe()
 }
+
