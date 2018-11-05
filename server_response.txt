@@ -1,9 +1,9 @@
-package main
+// package main
 
-import (
-	"fmt"
-	"net/http"
-)
+// import (
+// 	"fmt"
+// 	"net/http"
+// )
 
 //~~~~~~~~~~~基础服务
 // func index(w http.ResponseWriter , r *http.Request){
@@ -71,22 +71,22 @@ import (
 
 //~~~~~~~~~~~处理函数
 
-func Home(w http.ResponseWriter , r *http.Request){
-	fmt.Fprint(w , "home func")
-}
+// func Home(w http.ResponseWriter , r *http.Request){
+// 	fmt.Fprint(w , "home func")
+// }
 
-func Page(w http.ResponseWriter , r *http.Request){
-	fmt.Fprint(w , "page func")
-}
+// func Page(w http.ResponseWriter , r *http.Request){
+// 	fmt.Fprint(w , "page func")
+// }
 
-func main(){
+// func main(){
 
-	server := http.Server{
-		Addr:":8080",
-	}
+// 	server := http.Server{
+// 		Addr:":8080",
+// 	}
 
-	http.HandleFunc("/",Home)
-	http.HandleFunc("/page",Page)
+// 	http.HandleFunc("/",Home)
+// 	http.HandleFunc("/page",Page)
 	
-	server.ListenAndServe()
-}
+// 	server.ListenAndServe()
+// }
