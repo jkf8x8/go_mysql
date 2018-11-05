@@ -1,0 +1,63 @@
+package main
+
+import (
+	"fmt"
+	"net/http"
+
+)
+
+// func index(w http.ResponseWriter , r *http.Request){
+// 	str := `<h2>hehehe</h2>`
+// 	w.Header().Set("content-type","text/html")
+// 	// w.WriteHeader(501)
+// 	w.Write([]byte(str))
+// 	fmt.Println("ok")
+// }
+
+func setCookieFn(w http.ResponseWriter , r *http.Request){
+
+	
+	//  设置 cookie
+	// coo1 := http.Cookie{
+	// 	Name:"setCooki",
+	// 	Value:"abcdefg",
+	// 	HttpOnly:true,
+	// }
+	// w.Header().Set("set-cookie",coo1.String())
+	// 快捷设置cookie方式
+	// coo1 := http.Cookie{
+	// 	Name:"quick",
+	// 	Value:"quick cookie",
+	// 	HttpOnly:true,
+	// }
+	// http.SetCookie(w,&coo1)
+
+	w.Header().Set("content-type","text/html")	
+	//获取 请求中的cookie  cookies
+	coo1,err := r.Cookie("quick")
+	if err!=nil{
+		fmt.Fprintln(w,"没有设置cookie")
+	}
+	coos :=r.Cookies()
+
+	fmt.Fprintln(w,coo1)
+	fmt.Fprintln(w,coos)
+	
+	
+	str := `<h2>heheh</h2>`
+	w.Write([]byte(str))
+	fmt.Println("ok")
+}
+
+func main(){
+
+	server := http.Server{
+		Addr:":8080",
+	}
+
+	// http.HandleFunc("/",index)
+	http.HandleFunc("/",setCookieFn)
+
+	server.ListenAndServe()
+
+}
