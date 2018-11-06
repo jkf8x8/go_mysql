@@ -8,7 +8,16 @@
     <title>Document</title>
 </head>
 <body>
-    <h3>hellosss</h3>
-    {{.}}
+    <h2> index 2</h2>
+    <h3>index 3</h3>
+    <ul>
+    {{ range $key,$value :=. }}
+        <li>{{$key}} => {{$value}}</li>
+    {{else}}
+        <li>no thing</li>
+    {{ end }}
+    </ul>   
+
+    {{template "index.html" "ooooo"}}
 </body>
 </html>
